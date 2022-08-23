@@ -1,0 +1,114 @@
+
+React Udemy Course
+
+	- npm install (look in the package.json file and download the required libraries) - included in the overall setup process ('npx create-react-app');
+	- inside custom components we have "className" instead of "class" attribute;
+	- components are functions !!;
+	- React will assure that we get a parameter inside the functions (components) => "props" (it could be named however we want);
+	- React is all about components;
+	- "Composition" = "children props";
+	- Building reusable wrapper components;
+	- one special prop is received by every component => "props.children" (reserved name);
+	- the content of the props.children will always be the content between the open and closing tags of the custom component;
+		o ex :		function Card(props) {
+							return <div className="card">{props.children}</div>;
+							} 
+	- the components are configured through props;
+	- the custom components are not really HTML elements (enter developer console and show this);
+	- if you drill into the components deeply enough,they will end up using these build in HTML elements;
+	- JSX code (HTML inside JS) is not supported by the browser (is just syntactic sugar)
+	- JSX (return ...) is in the end equivalent to React.createElement() method;
+	- arrow functions (utility and examples);
+
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	Quiz #1
+		1. Which kind of code do you write when using React.js? => Declarative JS Code (define the "goal" and let React figure out how to get there).
+		
+		2. What is "JSX"? => It's a special, non-standard syntax which is enabled in React projects.
+		
+		3. Why is React all about "Components"? => Every UI in the end up is made up of multiple building blocks (components), hence it makes sense to think about user interfaces as "combinations of components".
+		
+		4. What is a "React Component"? => It's a JavaScript function which typically returns HTML (JSX) code that should be displayed.
+		
+		5. How many custom React components must a React app have? => That's totally up to you.
+		
+		6. What does "component tree" mean? => It means that you have a root node which then has more components nested beneath it.
+		
+		7. How can you output dynamic data in React components (i.e. in the returned JSX code)? => You can use single curly braces (opening & closing) with any JS expression between them.
+
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	- adding eventListeners to HTML elements (ex: Reacts exposes all the events as props starting with 'on');
+	- function naming good practice (if they are triggered upon an event) : '...Handler';
+	- by using the custom components in the JSX code, we make React aware of these functions and whenever React evaluates the JSX, it calls the component functions (under the hood);
+	- the component functions return JSX code which gets again evaluated, up until there is no more JSX code to be evaluated;
+				=> BUT Reacts never repeats that (it goes through all of that ONLY WHEN the application is INITIALLY RENDERED)
+				=> certain components should be reevaluated, and React has to be explicitly told to do so => special concept called STATE;
+	- named import vs default import => import React, {useState} from 'react';
+	- 'useState' is a function provided by the 'react' library => useState() is a react Hook, should be called INSIDE the component function;
+	- useState() actually returns an array ONLY 2 elements where the first value is the variable itself and the second is an updating function
+	- we use array destructuring, where only the order matters, not the names;
+  	- we can later call the setTitle function for updating values;
+	- by using this type of updating function, the whole component function will be executed again! (just the component in which the state was registered)
+	- we have separate states even if we create a component more than once (per-component instance basis!);
+	- obs.: React will not reinitialize the state! It will just grab the latest snapshot of the state;
+	- State adds reactivity to the application!;
+	- onChange vs onInput events : onChange is the same event we listen to for other input types (ex: Dropdowns);
+	- we could also go for 1 state instead of three => call useState once and pass an object as a value;
+	- we have to take care of all the pieces in state, because otherwise React would replace them, not merge them;
+	- setUserInput({ ...userInput, enteredTitle: event.target.value }); => spread operator + override what we need;
+	- whenever you update state and you DEPEND on the PREVIOUS state (ex: counter) you should use:
+			
+			setUserInput((prevState) => {
+					return { ...prevState, enteredTitle: event.target.value };
+				});
+
+					=> pass in a function that will be called automatically by React and receive the previous State snapshot as a parameter;
+         			=> in this way, React will guarantee that the state snapshot received is the latest state snapshot, keeping all scheduled state updates in mind;
+
+	- the forms have a specific event ('submit event') that gets triggered if a button (especially with the type 'submit') is pressed within a form;
+	- the default browser behaviour reloads the page on submit (automatically sends a request to the server which is hosting this page);
+	- prevent this by calling event.preventDefault();
+	- two-way binding : not just listen to changes for inputs but also pass back a value (ex: clear input after submission);
+		=> just add the 'value' attribute to the input element -> bind it to the enteredTitle (two-way binding);
+	- parent-child communication (props);
+	- child-parent communication (create our own event props and expect functions as parameters, then call the function with the desired data in the child component);
+	- we can not skip intermediate components when communicating between child and parent (parent and child) !!;
+	
+	Lifting state up
+
+		- we have no direct connection between two sibling components (we can only communicate from parent to child and from child to parent);
+		- we need to utilise the closest parent component which has direct or indirect access to both involved components;
+
+	
+	Controlled vs Uncontrolled components
+
+		- controlled component means that the reak logic resides in the parent component, and the controlled component just presents the data or
+	attaches a couple of listeners or props;
+
+
+	Stateless/ Presentational/ Dumb vs Stateful/ Smart components
+	
+		- usually there are less stateful components than dumb components;
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	
+	Quiz #2
+
+		1. How should you NOT listen to events when working with React? => Adding an event listener (e.g. via "addEventListener") manually.
+	This would be imperative code, you're not using React's features with this code and you would trigger some function that lives outside of React components and hence wouldn't be able to interact with React component state.
+		
+		2. Which value should you pass to event listener props like onClick? => you want to pass a "pointer" at the to-be-executed function as a value to onClick etc. 
+	Then, this function gets executed "on your behalf" by React when the event occurs.
+
+		3. How can you communicate from one of your components to a parent (i.e. higher level) component? => You can accept a function via props and call it from inside the lower-level (child) component to then trigger some action in the parent component (which passed the function).
+
+		4. Why do you need this extra "state" concept instead of regular JS variables which you change and use? => Because standard JS variables don't cause React components to be re-evaluated.
+
+		5. How can you update component state (created via useState)? => You can call the state updating function which useState also returned.
+
+		6. How much state may you manage in one single component? => You can have as many state slices as you need/want.
+
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
