@@ -18,8 +18,22 @@ const Expenses = (props) => {
         selected={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
-
-      <ExpenseItem
+      {/*  inside curly braces we can execute JSX code or render elements  */}
+      {props.items.map(
+        (
+          expense,
+          index //we could also use the second argument (index) if we do not have a unique key, though its discouraged
+          //to use the index as one may run into bugs (self-managed index) as the index is not directly attached to the content of the item;
+        ) => (
+          <ExpenseItem
+            key={expense.id} // this way, the item just gets added without updating every item of the previous existing array
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        )
+      )}
+      {/* <ExpenseItem
         title={props.items[0].title}
         amount={props.items[0].amount}
         date={props.items[0].date}
@@ -38,7 +52,7 @@ const Expenses = (props) => {
         title={props.items[3].title}
         amount={props.items[3].amount}
         date={props.items[3].date}
-      />
+      /> */}
     </Card>
   );
 };

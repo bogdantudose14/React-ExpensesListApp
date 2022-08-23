@@ -23,6 +23,7 @@ React Udemy Course
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
 	Quiz #1
+
 		1. Which kind of code do you write when using React.js? => Declarative JS Code (define the "goal" and let React figure out how to get there).
 		
 		2. What is "JSX"? => It's a special, non-standard syntax which is enabled in React projects.
@@ -112,3 +113,13 @@ React Udemy Course
 		6. How much state may you manage in one single component? => You can have as many state slices as you need/want.
 
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+  	- useState(DUMMY_EXPENSES) // use the list as the initial state value;
+	- spread operator can be used not only on objects but also on arrays;
+	
+	 React has a special concept when it comes to rendering lists of data, a concept which ensures that the update and render are efficient;
+		- usually, if no key is provided, React will visit all the items of the list and update them (potential performance issues or bugs)
+		- by using keys, we are telling React WHERE a new item should be added;
+		- add the special "key" prop;
+		- we could also use the second argument (index) if we do not have a unique key, though its discouraged to use the index as one may run into bugs (self-managed index) as the index is not directly attached to the content of the item;
