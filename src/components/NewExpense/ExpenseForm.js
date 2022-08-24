@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import './ExpenseForm.css';
+import React, { useState } from "react";
+import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
-  const [enteredTitle, setEnteredTitle] = useState(''); //states are initialized with a string because we receive strings from event.target.value
-  const [enteredAmount, setEnteredAmount] = useState('');
-  const [enteredDate, setEnteredDate] = useState('');
+  const [enteredTitle, setEnteredTitle] = useState(""); //states are initialized with a string because we receive strings from event.target.value
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
 
   //we could also go for 1 state instead of three => call useState once and pass an object as a value
   //manage it as one piece of state
@@ -40,7 +40,7 @@ const ExpenseForm = (props) => {
     event.preventDefault(); //default behaviour is to reload the page by sending a request to the hosting server of the page;
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount, //enforce a number conversion
       date: new Date(enteredDate), //parse and convert to a Date object
     };
 
@@ -49,9 +49,9 @@ const ExpenseForm = (props) => {
     props.onSaveExpenseData(expenseData); // access the prop in order to pass data from child component to parent component!
     // it's important to execute it because the value we get on this prop is a function
 
-    setEnteredTitle(''); //useful for two-way binding (input clearing)
-    setEnteredAmount('');
-    setEnteredDate('');
+    setEnteredTitle(""); //useful for two-way binding (input clearing)
+    setEnteredAmount("");
+    setEnteredDate("");
   };
 
   return (

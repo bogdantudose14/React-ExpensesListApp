@@ -123,3 +123,12 @@ React Udemy Course
 		- by using keys, we are telling React WHERE a new item should be added;
 		- add the special "key" prop;
 		- we could also use the second argument (index) if we do not have a unique key, though its discouraged to use the index as one may run into bugs (self-managed index) as the index is not directly attached to the content of the item;
+	
+	- usage of ternary expressions for conditional rendering:
+			ex: {filteredExpenses.length ===0 ? (<p>No expense found.</p>):(filteredExpenses.map((expense => ....)))}
+	- alternative usage of ternary operator ! => {filteredExpenses.length === 0 && <p>No expenses found.</p>}
+		=> JS works in such a way that, by using the && operator, it will basically return the part after the end operator, as a result of the overall check;
+			if the first condition is met;
+	- inline CSS : 'background-color':'red' OR backgroundColor:'red';
+
+	
